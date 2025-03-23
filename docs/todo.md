@@ -16,5 +16,6 @@ Các bước setup
 12. theme
 13. authentication + Oauth
 14. multiple language
+15. alias path
 
 Setup cursor rules + MCP sử dụng AI Agent
