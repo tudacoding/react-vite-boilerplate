@@ -1,26 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import reactLogo from "@/assets/react.svg";
-// import viteLogo from "../../public/vite.svg";
 import { Button } from "@/components/ui/button";
+import MainLayout from "../layouts/MainLayout";
 
 export const Route = createFileRoute("/")({
-  component: Index,
+  component: () => (
+    <MainLayout>
+      <IndexPage />
+    </MainLayout>
+  ),
 });
 
-function Index() {
+function IndexPage() {
   const [count, setCount] = useState(0);
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-center">
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center gap-8 mb-8">
-          <a href="https://vite.dev" target="_blank">
-            {/* <img
-              src={viteLogo}
-              className="logo w-24 hover:filter hover:brightness-125"
-              alt="Vite logo"
-            /> */}
-          </a>
           <a href="https://react.dev" target="_blank">
             <img
               src={reactLogo}
