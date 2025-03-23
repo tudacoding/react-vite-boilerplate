@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import MainLayout from "../layouts/MainLayout";
 import { useQuery } from "@tanstack/react-query";
-
 export const Route = createFileRoute("/about")({
   component: AboutPage,
 });
@@ -14,12 +13,10 @@ function AboutPage() {
         "https://tqb-enroll-api-dev.smoke-ant.com/page-settings/?attribute=banner&attribute=exam-search-dialog"
       ).then((res) => res.json()),
   });
-  console.log(data);
   return (
     <MainLayout>
       <div className="text-center">
         <h1 className="text-4xl font-bold text-gray-900">Về Chúng Tôi</h1>
-
         {isPending && <p className="mt-4 text-xl">Đang tải...</p>}
 
         {error && (
