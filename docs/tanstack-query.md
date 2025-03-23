@@ -1,0 +1,2 @@
+- gọi dữ liệu khi mở vào tab chứa trang web nên gần như realtime
+- dễ dùng, dễ sử dụng 
