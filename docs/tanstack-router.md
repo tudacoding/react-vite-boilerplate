@@ -1,0 +1,4 @@
+- Using File-Based Route Generation giúp tạo ra router dựa vào cấu trúc thư mục 
+- Khi thêm file mới trong folder routes thì tự động update routeTree.gen.ts
+- Bỏ file App.tsx vì đã xử lý qua route index.tsx (HomePage)
+- Load các CSS từ main.tsx
