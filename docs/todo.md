@@ -11,7 +11,7 @@ Các bước setup
 - [x] setup layout (index page và admin page)
 
 - [] call-api data flow (interceptor, canceling ...) react-query, graphQL
-- [] store
+- [] store (zustand)
 - [] authentication + Oauth (clerk)
 
 - [] Chia components và modules UI

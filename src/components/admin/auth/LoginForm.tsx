@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/useAuth";
 import { FaGoogle, FaGithub } from "react-icons/fa";
+import { useGoogleAuth } from "@/api/auth";
 
 interface LoginFormProps {
   onSuccess?: () => void;
@@ -22,6 +23,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const login = useAuth((state) => state.login);
+  const { loginWithGoogle } = useGoogleAuth();
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -48,8 +50,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
   }
 
   const handleGoogleLogin = () => {
-    // TODO: Implement Google login
-    console.log("Google login clicked");
+    loginWithGoogle.mutate();
   };
 
   const handleGithubLogin = () => {
@@ -72,9 +73,38 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
             className="w-full" 
             onClick={handleGoogleLogin}
             type="button"
+            disabled={loginWithGoogle.isPending}
           >
-            <FaGoogle className="mr-2 h-4 w-4" />
-            Google
+            {loginWithGoogle.isPending ? (
+              <div className="flex items-center">
+                <svg
+                  className="animate-spin -ml-1 mr-3 h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  />
+                </svg>
+                Đang xử lý...
+              </div>
+            ) : (
+              <>
+                <FaGoogle className="mr-2 h-4 w-4" />
+                Google
+              </>
+            )}
           </Button>
           <Button 
             variant="outline" 

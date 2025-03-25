@@ -17,6 +17,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as AdminUsersImport } from './routes/admin.users'
 import { Route as AdminLoginImport } from './routes/admin.login'
 import { Route as AdminDashboardImport } from './routes/admin.dashboard'
+import { Route as AuthCallbackIndexImport } from './routes/auth/callback/index'
 
 // Create/Update Routes
 
@@ -53,6 +54,12 @@ const AdminLoginRoute = AdminLoginImport.update({
 const AdminDashboardRoute = AdminDashboardImport.update({
   id: '/admin/dashboard',
   path: '/admin/dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthCallbackIndexRoute = AuthCallbackIndexImport.update({
+  id: '/auth/callback/',
+  path: '/auth/callback/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -102,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsersImport
       parentRoute: typeof rootRoute
     }
+    '/auth/callback/': {
+      id: '/auth/callback/'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -114,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/users': typeof AdminUsersRoute
+  '/auth/callback': typeof AuthCallbackIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -123,6 +138,7 @@ export interface FileRoutesByTo {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/users': typeof AdminUsersRoute
+  '/auth/callback': typeof AuthCallbackIndexRoute
 }
 
 export interface FileRoutesById {
@@ -133,6 +149,7 @@ export interface FileRoutesById {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/users': typeof AdminUsersRoute
+  '/auth/callback/': typeof AuthCallbackIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -144,6 +161,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/login'
     | '/admin/users'
+    | '/auth/callback'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -152,6 +170,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/login'
     | '/admin/users'
+    | '/auth/callback'
   id:
     | '__root__'
     | '/'
@@ -160,6 +179,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/login'
     | '/admin/users'
+    | '/auth/callback/'
   fileRoutesById: FileRoutesById
 }
 
@@ -170,6 +190,7 @@ export interface RootRouteChildren {
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminUsersRoute: typeof AdminUsersRoute
+  AuthCallbackIndexRoute: typeof AuthCallbackIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -179,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminDashboardRoute: AdminDashboardRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminUsersRoute: AdminUsersRoute,
+  AuthCallbackIndexRoute: AuthCallbackIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -196,7 +218,8 @@ export const routeTree = rootRoute
         "/profile",
         "/admin/dashboard",
         "/admin/login",
-        "/admin/users"
+        "/admin/users",
+        "/auth/callback/"
       ]
     },
     "/": {
@@ -216,6 +239,9 @@ export const routeTree = rootRoute
     },
     "/admin/users": {
       "filePath": "admin.users.tsx"
+    },
+    "/auth/callback/": {
+      "filePath": "auth/callback/index.tsx"
     }
   }
 }
