@@ -1,11 +1,20 @@
 import { ReactNode } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useAuth } from "@/hooks/useAuth";
 
 interface AdminLayoutProps {
   children: ReactNode;
 }
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
+  const navigate = useNavigate();
+  const logout = useAuth((state) => state.logout);
+
+  const handleLogout = () => {
+    logout();
+    navigate({ to: "/admin/login" });
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="flex">
@@ -27,6 +36,12 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
             >
               Users
             </Link>
+            <button
+              onClick={handleLogout}
+              className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-700"
+            >
+              Đăng xuất
+            </button>
           </nav>
         </aside>
 

@@ -15,6 +15,7 @@ import { Route as ProfileImport } from './routes/profile'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 import { Route as AdminUsersImport } from './routes/admin.users'
+import { Route as AdminLoginImport } from './routes/admin.login'
 import { Route as AdminDashboardImport } from './routes/admin.dashboard'
 
 // Create/Update Routes
@@ -40,6 +41,12 @@ const IndexRoute = IndexImport.update({
 const AdminUsersRoute = AdminUsersImport.update({
   id: '/admin/users',
   path: '/admin/users',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AdminLoginRoute = AdminLoginImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -81,6 +88,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDashboardImport
       parentRoute: typeof rootRoute
     }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginImport
+      parentRoute: typeof rootRoute
+    }
     '/admin/users': {
       id: '/admin/users'
       path: '/admin/users'
@@ -98,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/profile': typeof ProfileRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/login': typeof AdminLoginRoute
   '/admin/users': typeof AdminUsersRoute
 }
 
@@ -106,6 +121,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/profile': typeof ProfileRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/login': typeof AdminLoginRoute
   '/admin/users': typeof AdminUsersRoute
 }
 
@@ -115,20 +131,34 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/profile': typeof ProfileRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/login': typeof AdminLoginRoute
   '/admin/users': typeof AdminUsersRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/profile' | '/admin/dashboard' | '/admin/users'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/profile'
+    | '/admin/dashboard'
+    | '/admin/login'
+    | '/admin/users'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/profile' | '/admin/dashboard' | '/admin/users'
+  to:
+    | '/'
+    | '/about'
+    | '/profile'
+    | '/admin/dashboard'
+    | '/admin/login'
+    | '/admin/users'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/profile'
     | '/admin/dashboard'
+    | '/admin/login'
     | '/admin/users'
   fileRoutesById: FileRoutesById
 }
@@ -138,6 +168,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ProfileRoute: typeof ProfileRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminLoginRoute: typeof AdminLoginRoute
   AdminUsersRoute: typeof AdminUsersRoute
 }
 
@@ -146,6 +177,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ProfileRoute: ProfileRoute,
   AdminDashboardRoute: AdminDashboardRoute,
+  AdminLoginRoute: AdminLoginRoute,
   AdminUsersRoute: AdminUsersRoute,
 }
 
@@ -163,6 +195,7 @@ export const routeTree = rootRoute
         "/about",
         "/profile",
         "/admin/dashboard",
+        "/admin/login",
         "/admin/users"
       ]
     },
@@ -177,6 +210,9 @@ export const routeTree = rootRoute
     },
     "/admin/dashboard": {
       "filePath": "admin.dashboard.tsx"
+    },
+    "/admin/login": {
+      "filePath": "admin.login.tsx"
     },
     "/admin/users": {
       "filePath": "admin.users.tsx"
