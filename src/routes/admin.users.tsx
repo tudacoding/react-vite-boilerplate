@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import AdminLayout from "../layouts/AdminLayout";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { ProtectedRoute } from "@/components/admin/auth/ProtectedRoute";
 
 export const Route = createFileRoute("/admin/users")({
   component: () => (

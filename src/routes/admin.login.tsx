@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { LoginForm } from "@/components/login-form";
+import { LoginForm } from "@/components/admin/auth/LoginForm";
 import { useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/admin/login")({
