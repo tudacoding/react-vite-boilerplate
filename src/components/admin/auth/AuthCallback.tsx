@@ -1,27 +1,29 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useGoogleAuth } from "@/api/auth";
 import { Route as CallbackRoute } from "@/routes/auth/callback";
 
 export default function AuthCallback() {
   const navigate = useNavigate();
-  const { code } = useSearch({ from: CallbackRoute.id });
-  const { handleGoogleCallback } = useGoogleAuth();
+  const { accessToken, providerToken, refreshToken } = useSearch({
+    from: CallbackRoute.id,
+  });
+  const { verifyGoogleCallback } = useGoogleAuth();
+  const hasCalledVerify = useRef(false);
 
   useEffect(() => {
-    if (code) {
-      handleGoogleCallback.mutate(code, {
-        onSuccess: () => {
-          navigate({ to: "/admin/dashboard" });
-        },
-        onError: () => {
-          navigate({ to: "/admin/login" });
-        },
+    if (accessToken && !hasCalledVerify.current) {
+      hasCalledVerify.current = true;
+      verifyGoogleCallback.mutate({
+        access_token: accessToken,
+        refresh_token: refreshToken ?? "",
+        provider_token: providerToken ?? "",
       });
     } else {
       navigate({ to: "/admin/login" });
     }
-  }, [code, handleGoogleCallback, navigate]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessToken]);
 
   return (
     <div className="flex items-center justify-center min-h-screen">

@@ -1,28 +1,29 @@
 import { create } from "zustand";
-import type { User } from "@/types/auth";
+import type { UserInfo } from "@/types/auth";
+import { cipher } from "@/lib/cipher";
 
 interface AuthState {
-  user: User | null;
-  token: string | null;
-  setUser: (user: User | null) => void;
-  setToken: (token: string | null) => void;
+  userInfo: UserInfo | null;
+  isAuthenticated: boolean;
+  setUserInfo: (userInfo: UserInfo | null) => void;
   logout: () => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  token: localStorage.getItem("token"),
-  setUser: (user) => set({ user }),
-  setToken: (token) => {
-    if (token) {
-      localStorage.setItem("token", token);
-    } else {
-      localStorage.removeItem("token");
+  userInfo: null,
+  isAuthenticated: false,
+  setUserInfo: (userInfo: UserInfo | null) => {
+    set({ userInfo });
+    set({ isAuthenticated: !!userInfo });
+    if (userInfo) {
+      const authUserEncoded = cipher(import.meta.env.VITE_HASH_KEY)(
+        JSON.stringify(userInfo)
+      );
+      localStorage.setItem("userInfo", authUserEncoded);
     }
-    set({ token });
   },
   logout: () => {
-    localStorage.removeItem("token");
-    set({ user: null, token: null });
+    localStorage.removeItem("userInfo");
+    set({ userInfo: null });
   },
 }));

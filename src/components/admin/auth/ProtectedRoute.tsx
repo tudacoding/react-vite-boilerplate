@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";
+import { useAuthStore } from "@/store/auth";
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -9,8 +9,7 @@ interface ProtectedRouteProps {
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const navigate = useNavigate();
-  const isAuthenticated = useAuth((state) => state.isAuthenticated);
-
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   useEffect(() => {
     if (!isAuthenticated) {
       navigate({ to: "/admin/login" });

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuthStore } from "@/store/auth";
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -8,7 +8,7 @@ interface AdminLayoutProps {
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
   const navigate = useNavigate();
-  const logout = useAuth((state) => state.logout);
+  const { logout } = useAuthStore();
 
   const handleLogout = () => {
     logout();

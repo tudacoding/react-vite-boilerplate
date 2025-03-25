@@ -11,18 +11,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { useAuth } from "@/hooks/useAuth";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { useGoogleAuth } from "@/api/auth";
 
-interface LoginFormProps {
-  onSuccess?: () => void;
-}
-
-export function LoginForm({ onSuccess }: LoginFormProps) {
+export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const login = useAuth((state) => state.login);
+  
   const { loginWithGoogle } = useGoogleAuth();
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -30,17 +25,17 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
     setIsLoading(true);
     setError(null);
 
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+    // const formData = new FormData(event.currentTarget);
+    // const email = formData.get("email") as string;
+    // const password = formData.get("password") as string;
 
     try {
-      const success = await login(email, password);
-      if (success) {
-        onSuccess?.();
-      } else {
-        setError("Email hoặc mật khẩu không chính xác");
-      }
+      // const success = await login(email, password);
+      // if (success) {
+      //   onSuccess?.();
+      // } else {
+      //   setError("Email hoặc mật khẩu không chính xác");
+      // }
     } catch (error) {
       if (error instanceof Error) setError(error.message);
       else setError("Đã xảy ra lỗi khi đăng nhập");
