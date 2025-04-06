@@ -36,6 +36,12 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
             >
               Users
             </Link>
+            <Link
+              to="/admin/courses"
+              className="block px-4 py-2 text-gray-300 hover:bg-gray-700"
+            >
+              Courses
+            </Link>
             <button
               onClick={handleLogout}
               className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-700"

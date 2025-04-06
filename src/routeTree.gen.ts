@@ -17,6 +17,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as AdminUsersImport } from './routes/admin.users'
 import { Route as AdminLoginImport } from './routes/admin.login'
 import { Route as AdminDashboardImport } from './routes/admin.dashboard'
+import { Route as AdminCoursesImport } from './routes/admin.courses'
 import { Route as AuthCallbackIndexImport } from './routes/auth/callback/index'
 
 // Create/Update Routes
@@ -57,6 +58,12 @@ const AdminDashboardRoute = AdminDashboardImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AdminCoursesRoute = AdminCoursesImport.update({
+  id: '/admin/courses',
+  path: '/admin/courses',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AuthCallbackIndexRoute = AuthCallbackIndexImport.update({
   id: '/auth/callback/',
   path: '/auth/callback/',
@@ -86,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileImport
+      parentRoute: typeof rootRoute
+    }
+    '/admin/courses': {
+      id: '/admin/courses'
+      path: '/admin/courses'
+      fullPath: '/admin/courses'
+      preLoaderRoute: typeof AdminCoursesImport
       parentRoute: typeof rootRoute
     }
     '/admin/dashboard': {
@@ -125,6 +139,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/profile': typeof ProfileRoute
+  '/admin/courses': typeof AdminCoursesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/users': typeof AdminUsersRoute
@@ -135,6 +150,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/profile': typeof ProfileRoute
+  '/admin/courses': typeof AdminCoursesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/users': typeof AdminUsersRoute
@@ -146,6 +162,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/profile': typeof ProfileRoute
+  '/admin/courses': typeof AdminCoursesRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/users': typeof AdminUsersRoute
@@ -158,6 +175,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/profile'
+    | '/admin/courses'
     | '/admin/dashboard'
     | '/admin/login'
     | '/admin/users'
@@ -167,6 +185,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/profile'
+    | '/admin/courses'
     | '/admin/dashboard'
     | '/admin/login'
     | '/admin/users'
@@ -176,6 +195,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/profile'
+    | '/admin/courses'
     | '/admin/dashboard'
     | '/admin/login'
     | '/admin/users'
@@ -187,6 +207,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ProfileRoute: typeof ProfileRoute
+  AdminCoursesRoute: typeof AdminCoursesRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminUsersRoute: typeof AdminUsersRoute
@@ -197,6 +218,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ProfileRoute: ProfileRoute,
+  AdminCoursesRoute: AdminCoursesRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminUsersRoute: AdminUsersRoute,
@@ -216,6 +238,7 @@ export const routeTree = rootRoute
         "/",
         "/about",
         "/profile",
+        "/admin/courses",
         "/admin/dashboard",
         "/admin/login",
         "/admin/users",
@@ -230,6 +253,9 @@ export const routeTree = rootRoute
     },
     "/profile": {
       "filePath": "profile.tsx"
+    },
+    "/admin/courses": {
+      "filePath": "admin.courses.tsx"
     },
     "/admin/dashboard": {
       "filePath": "admin.dashboard.tsx"
